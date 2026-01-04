@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589436574974",
+    "project_id": "noafinalproj2",
+    "storage_bucket": "noafinalproj2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589436574974:android:028188ee36168a63d6d9af",
+        "android_client_info": {
+          "package_name": "com.example.noafinalproj2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhAEslS9oteyVk17xJg9OHo1EkCLpUsVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
