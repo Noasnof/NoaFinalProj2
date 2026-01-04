@@ -9,6 +9,7 @@ public class GameManger {
     public int isWin()
     {
 
+
         return 0;
     }
     public void againstPlayer()
