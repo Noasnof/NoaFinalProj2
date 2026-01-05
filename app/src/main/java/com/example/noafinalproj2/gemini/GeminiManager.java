@@ -20,7 +20,7 @@ import kotlin.coroutines.CoroutineContext;
 import kotlin.coroutines.EmptyCoroutineContext;
 
 public class GeminiManager {
-    public static final String API_KEY = "AIzaSyBCvLBG0Lj4ZSClq-sMFCSYkrXH6zDHrDY";
+    public static final String API_KEY = "AIzaSyBpb4_XjDaarQvg9IWsokER7SAqyvhBGQ4";
     private static GeminiManager instance;
     private GenerativeModel gemini;
 
@@ -29,7 +29,7 @@ public class GeminiManager {
     private GeminiManager() {
         //init
         gemini = new GenerativeModel(
-                "gemini-2.0-flash",
+                "gemini-1.5-flash",
                 API_KEY
         );
     }

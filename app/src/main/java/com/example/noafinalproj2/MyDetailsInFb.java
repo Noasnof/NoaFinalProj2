@@ -1,42 +1,35 @@
 package com.example.noafinalproj2;
 
 public class MyDetailsInFb {
-     private String type;
-    private int price;
 
-    public MyDetailsInFb(String type, int price) {
-        this.type = type;
-        this.price = price;
+    private int Score;
 
+    public MyDetailsInFb() {
+        this.Score=100;
+
+    }
+
+    public MyDetailsInFb(int score) {
     }
 
     // MUST have the constructor  for the FireBase
-    public MyDetailsInFb() {
-    }
+
 
     // MUST generate getters and setters for the FireBase
 
-    public String getType() {
-        return type;
+
+    public int getScore() {
+        return Score;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setScore(int Score) {
+        this.Score = Score;
     }
 
     @Override
     public String toString() {
         return "MyDetailsInFb{" +
-                ", type='" + type + '\'' +
-                ", price=" + price +
+                ", Score='" + Score +
                 '}';
     }
 }

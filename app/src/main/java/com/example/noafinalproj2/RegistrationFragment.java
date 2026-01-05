@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.color.utilities.Score;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -25,7 +26,7 @@ public class RegistrationFragment extends Fragment {
     private FirebaseAuth mAuth;
     private EditText etEmail, etPassword, etName;
     private Button btnRegister;
-
+    FBsingleton fb;
     public RegistrationFragment() {
         // Required empty public constructor
     }
@@ -75,8 +76,10 @@ public class RegistrationFragment extends Fragment {
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
-
+                        fb = FBsingleton.getInstance();
+                        fb.setDetails(100);
                         FBsingleton.getInstance().setName(name);
+
 
                         // Move to WelcomeActivity
                         Intent intent = new Intent(getActivity(), StartActivity.class);

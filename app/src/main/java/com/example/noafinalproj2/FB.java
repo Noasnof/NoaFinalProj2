@@ -2,8 +2,6 @@ package com.example.noafinalproj2;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.color.utilities.Score;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,13 +13,17 @@ import com.google.firebase.database.ValueEventListener;
 // https://firebase.google.com/docs/database/android/lists-of-data#java_1
 
 
-public class FBsingleton {
-    private static FBsingleton instance;
+public class FB {
+    private static FB instance;
 
     FirebaseDatabase database;
 
-    protected FBsingleton() {
+    private FB() {
+        //database = FirebaseDatabase.getInstance("https://fbrecordssingletone-default-rtdb.firebaseio.com/");
         database = FirebaseDatabase.getInstance();
+        // Test
+
+        //this.records = MainActivity.records;
 
         // read the records from the Firebase and order them by the record from highest to lowest
         // limit to only 8 items
@@ -30,7 +32,14 @@ public class FBsingleton {
         myQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
-                database = FirebaseDatabase.getInstance();
+                //records.clear();  // clear the array list
+                MainActivity.records.clear();
+                for(DataSnapshot userSnapshot : snapshot.getChildren())
+                {
+                    //String str =userSnapshot.child()  .getValue(Record.class);
+                    Record currentRecord =userSnapshot.getValue(Record.class);
+                    MainActivity.records.add(0, currentRecord);
+                }
             }
 
             @Override
@@ -41,34 +50,22 @@ public class FBsingleton {
 
     }
 
-    public static FBsingleton getInstance() {
+    public static FB getInstance() {
         if (null == instance) {
-            instance = new FBsingleton();
+            instance = new FB();
         }
         return instance;
     }
 
-    public void setName(String name)
+    public void setRecord(String name, int record)
     {
         // Write a message to the database
-        //DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
+        DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
 
-        DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyName");
+        //DatabaseReference myRef = database.getReference("
+        // /" + FirebaseAuth.getInstance().getUid());
 
-        myRef.setValue(name);
-
-    }
-    public void setDetails(int Score)
-    {
-        // Write a message to the database
-        //DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
-
-        DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyDetails");
-
-        MyDetailsInFb rec = new MyDetailsInFb(100);
+        Record rec = new Record(name, record);
         myRef.setValue(rec);
     }
-
-
-
 }

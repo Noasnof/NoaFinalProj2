@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity"
     android:orientation="vertical">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edSubject"></EditText>
-
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="DDDDD"
+       android:textSize="40dp"
+       android:id="@+id/tvAnswer"></TextView>
     <Button
         android:id="@+id/btnSend"
         android:layout_width="332dp"
