@@ -20,11 +20,16 @@ import com.example.noafinalproj2.gemini.GeminiCallback;
 import com.example.noafinalproj2.gemini.GeminiManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public Button btnAgainstPlayer,btnAgainstAi,btnInstruction,btnLogout,btnNewPlayer;
     EditText edGvihim;
 
     public String topic;
+    public static ArrayList<Record> records;
+
+    FB fb;
     private static final String API_KEY = "AIzaSyCxQCtqMjCtfgMnSPhY1mQ9dRMQ-ihDvRI"; // הכניסי כאן את מפתח ה-API שלך
 
 
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNewPlayer=findViewById(R.id.btnNewPlayer);
         btnNewPlayer.setOnClickListener(this);
         String TAG = "MainActivity";
-
+        initialization();
     }
 
     @Override
@@ -122,4 +127,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
+
+
+
+
+    private void initialization() {
+    // initialize
+
+
+
+    records = new ArrayList<>();
+    fb = FB.getInstance();
+}
 }

@@ -41,10 +41,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.UserViewHo
         Record record = recordsList.get(position);
 
         // TODO: update according to your Class
-        holder.tvName.setText(record.getName());
+        holder.tvName.setText(record.getAnswer());
 
         // convert int to String by:  ""+int
-        holder.tvRecord.setText(""+record.getScore());
+
 
     }
 
@@ -62,7 +62,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.UserViewHo
 
             // TODO:
             tvName = itemView.findViewById(R.id.tvName);
-            tvRecord = itemView.findViewById(R.id.tvScore);
+
         }
     }
 }

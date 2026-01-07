@@ -27,7 +27,7 @@ public class FB {
 
         // read the records from the Firebase and order them by the record from highest to lowest
         // limit to only 8 items
-        Query myQuery = database.getReference("records").orderByChild("score").limitToLast(10);
+        Query myQuery = database.getReference("Answers").orderByChild("Answer");
 
         myQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -57,15 +57,15 @@ public class FB {
         return instance;
     }
 
-    public void setRecord(String name, int record)
+    public void setRecord(String Answer)
     {
         // Write a message to the database
-        DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
+        DatabaseReference myRef = database.getReference("Answers").push(); // push adds new node with unique value
 
         //DatabaseReference myRef = database.getReference("
         // /" + FirebaseAuth.getInstance().getUid());
 
-        Record rec = new Record(name, record);
+        Record rec = new Record(Answer);
         myRef.setValue(rec);
     }
 }

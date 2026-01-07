@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoaFinalProj2">
         <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreatePlayer"
             android:exported="false" />
         <activity
@@ -30,9 +33,6 @@
             android:exported="false" />
         <activity
             android:name=".InstructionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GameActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

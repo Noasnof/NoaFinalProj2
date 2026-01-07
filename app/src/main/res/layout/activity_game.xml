@@ -22,8 +22,14 @@
     <EditText
         android:id="@+id/edAnswer"
         android:layout_width="304dp"
-        android:layout_height="572dp"
+        android:layout_height="30dp"
         android:hint="רשום את התשובה"></EditText>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"
+        android:background="#FFFF00"
+        android:layout_marginLeft="40dp"
+        ></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

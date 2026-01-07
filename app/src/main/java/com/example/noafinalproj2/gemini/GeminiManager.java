@@ -29,7 +29,7 @@ public class GeminiManager {
     private GeminiManager() {
         //init
         gemini = new GenerativeModel(
-                "gemini-1.5-flash",
+                "gemini-2.5-flash",
                 API_KEY
         );
     }
