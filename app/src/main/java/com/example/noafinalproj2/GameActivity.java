@@ -34,7 +34,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvAnswer=findViewById(R.id.tvAnswer);
         String topic=getIntent().getStringExtra("subject");
         tvAnswer.setText(topic);
-        initialization();
+
 
     }
 
@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         FB.getInstance().setRecord(Answer); }
+        initialization();
     }
     private void initialization() {
         // initialize
