@@ -49,6 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         startTurn();
 
 
+
     }
 
     private void startTurn() {
