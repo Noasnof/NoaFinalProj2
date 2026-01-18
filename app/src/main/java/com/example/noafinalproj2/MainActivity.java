@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onError(Throwable e) {
                     Log.e(TAG, "Gemini error", e); // prints full stack trace, not just message
                     topic="Error";
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     Toast.makeText(MainActivity.this,
                             "Error: " + e.getClass().getName() + " / " + e.getMessage(),
                             Toast.LENGTH_LONG).show();

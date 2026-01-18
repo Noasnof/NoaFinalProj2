@@ -5,11 +5,12 @@ public class MyDetailsInFb {
     private int Score;
 
     public MyDetailsInFb() {
-        this.Score=100;
+
 
     }
 
     public MyDetailsInFb(int score) {
+        this.Score = score;
     }
 
     // MUST have the constructor  for the FireBase
