@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.color.utilities.Score;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RegistrationFragment#newInstance} factory method to
@@ -27,6 +30,7 @@ public class RegistrationFragment extends Fragment {
     private EditText etEmail, etPassword, etName;
     private Button btnRegister;
     FBsingleton fb;
+    public ArrayList<Player>players;
     public RegistrationFragment() {
         // Required empty public constructor
     }
@@ -79,6 +83,7 @@ public class RegistrationFragment extends Fragment {
                         fb = FBsingleton.getInstance();
                         fb.setDetails(100);
                         FBsingleton.getInstance().setName(name);
+
 
 
                         // Move to WelcomeActivity

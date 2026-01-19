@@ -68,4 +68,8 @@ public class FB {
         Record rec = new Record(Answer);
         myRef.setValue(rec);
     }
+    public void clearRecords() {
+        // משתמשים ב-database שכבר קיים במחלקה כדי לגשת לצומת Answers ולמחוק אותו
+        database.getReference("Answers").removeValue();
+    }
 }

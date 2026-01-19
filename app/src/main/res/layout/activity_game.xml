@@ -5,39 +5,80 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
-    android:orientation="vertical">
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/timerText"></TextView>
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/playerText"></TextView>
-    <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="DDDDD"
-       android:textSize="40dp"
-       android:id="@+id/tvAnswer"></TextView>
-    <Button
-        android:id="@+id/btnSend"
-        android:layout_width="332dp"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#F0F8FF"
+    tools:context=".GameActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="שלח"></Button>
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⏱️ 00:30"
+            android:textSize="20sp"
+            android:textColor="#FF5722"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/playerText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="👤 שחקן 1"
+            android:textSize="20sp"
+            android:textColor="#3F51B5" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="מה התשובה?"
+        android:textColor="#2E7D32"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edAnswer"
-        android:layout_width="304dp"
-        android:layout_height="30dp"
-        android:hint="רשום את התשובה"></EditText>
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="הקלד כאן..."
+        android:gravity="center"
+        android:inputType="text"
+        android:textSize="22sp"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="בדוק תשובה! 🚀"
+        android:textSize="24sp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        app:rippleColor="#FFFFFF" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
         android:id="@+id/recyclerView"
-        android:background="#FFFF00"
-        android:layout_marginLeft="40dp"
-        ></androidx.recyclerview.widget.RecyclerView>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="#E1F5FE"
+        android:padding="10dp" />
 
 </LinearLayout>
