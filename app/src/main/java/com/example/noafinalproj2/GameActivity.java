@@ -133,7 +133,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void checkAnswerWithAI(String answerToCheck) {
         btnSend.setEnabled(false); // נועלים את הכפתור כדי שלא ילחצו שוב
 
-        // הנחיה חזקה יותר ל-AI
+
         String prompt = "You are a game judge. The category is: " + topic +
                 ". Is the word '" + answerToCheck + "' part of this category? " +
                 "Answer ONLY with the word 'true' or 'false'. No punctuation.";
