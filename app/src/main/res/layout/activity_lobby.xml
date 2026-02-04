@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F5F5F5"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvLobbyStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מחפש יריב..."
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvPlayer1Name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="אני"
+            android:gravity="center"
+            android:textSize="18sp"/>
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:id="@+id/tvPlayer2Name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ממתין..."
+            android:gravity="center"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCancelLobby"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ביטול"
+        android:backgroundTint="#FF5252"/>
+</LinearLayout>

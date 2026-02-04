@@ -1,7 +1,6 @@
 package com.example.noafinalproj2;
 
 import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,23 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.noafinalproj2.gemini.GeminiCallback;
 import com.example.noafinalproj2.gemini.GeminiManager;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public Button btnAgainstPlayer, btnAgainstAi, btnInstruction, btnLogout, btnNewPlayer;
     EditText edGvihim;
-
     public static ArrayList<Record> records;
-
     FB fb;
 
     @Override
@@ -56,53 +50,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         if (v == btnAgainstPlayer) {
-            Intent i = new Intent(MainActivity.this, SelectActivity.class);
+            // מעבר למסך ההמתנה לחיפוש שחקן נוסף
+            Intent i = new Intent(MainActivity.this, LobbyActivity.class);
             startActivity(i);
         }
 
         if (v == btnAgainstAi) {
             String prompt = "תן לי נושא אחד למשחק אסוסיאציות. תכתוב רק את הנושא בלי דברים נוספים. בעברית. תשובה עד שלוש מילים";
-
             GeminiManager.getInstance().sendMessage(prompt, new GeminiCallback() {
-
                 @Override
                 public void onSuccess(String response) {
                     runOnUiThread(() -> {
-                        Log.d("TOPIC_DEBUG", response);
-
-                        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LobbyActivity.class);
                         intent.putExtra("subject", response);
+                        // במשחק נגד AI, השחקן השני הוא מזהה קבוע
+                        intent.putExtra("PLAYER1_UID", FirebaseAuth.getInstance().getUid());
+                        intent.putExtra("PLAYER2_UID", "AI_PLAYER_ID");
                         startActivity(intent);
                     });
                 }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.e(TAG, "Gemini error", e);
-                    runOnUiThread(() ->
-                            Toast.makeText(MainActivity.this,
-                                    "שגיאה בקבלת נושא מה-AI",
-                                    Toast.LENGTH_SHORT).show()
-                    );
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.e(TAG, "Gemini exception", e);
-                    runOnUiThread(() ->
-                            Toast.makeText(MainActivity.this,
-                                    "שגיאה: " + e.getMessage(),
-                                    Toast.LENGTH_SHORT).show()
-                    );
-                }
+                @Override public void onError(Throwable e) { Log.e(TAG, "Error", e); }
+                @Override public void onError(Exception e) { Log.e(TAG, "Exception", e); }
             });
         }
 
         if (v == btnInstruction) {
-            Intent i2 = new Intent(MainActivity.this, InstructionActivity.class);
-            startActivity(i2);
+            startActivity(new Intent(MainActivity.this, InstructionActivity.class));
         }
 
         if (v == btnLogout) {
@@ -111,8 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (v == btnNewPlayer) {
-            Intent i3 = new Intent(MainActivity.this, CreatePlayer.class);
-            startActivity(i3);
+            startActivity(new Intent(MainActivity.this, CreatePlayer.class));
         }
     }
 
