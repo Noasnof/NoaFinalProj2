@@ -1,26 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InstructionActivity"
-    android:orientation="vertical">
-    <TextView
+    android:background="#050015"
+    tools:context=".InstructionActivity">
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="-100dp"
+        android:layout_marginTop="-100dp"
+        android:alpha="0.2"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#FFD700" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="הוראות המשחק"
-        android:id="@+id/tvInstruction"
-></TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="לכתוב הוראות"
-        android:id="@+id/btnHowPlay"></TextView>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="חזרה לדף הבית"
-        android:id="@+id/btnBack"></Button>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvInstruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📜 הוראות המשחק"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#FFCC00"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:shadowColor="#FFD700"
+            android:shadowRadius="15" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#1AFFFFFF"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/btnHowPlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="במשחק זה שני שחקנים מתחרים זה מול זה!\n\n1️⃣ מקבלים נושא משותף למשחק.\n\n2️⃣ כל שחקן בתורו חייב לרשום מילה הקשורה לנושא.\n\n⏳ שימו לב: יש לכם 30 שניות בלבד להגיב!\n\n🏆 ניצחון: המנצח מקבל 10 גביעים.\n💔 הפסד: מי שלא עונה בזמן מאבד 10 גביעים.\n\nבהצלחה!"
+                    android:textSize="19sp"
+                    android:textColor="#FFFFFF"
+                    android:lineSpacingExtra="10dp"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:shadowColor="#44FFFFFF"
+                    android:shadowRadius="5" />
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="חזרה לדף הבית"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="#00FF87"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            app:cornerRadius="35dp"
+            android:elevation="10dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

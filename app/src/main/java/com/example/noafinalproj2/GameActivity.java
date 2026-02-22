@@ -34,7 +34,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private boolean gameOver = false;
 
     private String topic;
-
+    FBsingleton fBsingleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +133,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void checkAnswerWithAI(String answerToCheck) {
         btnSend.setEnabled(false); // נועלים את הכפתור כדי שלא ילחצו שוב
 
-
+        // הנחיה חזקה יותר ל-AI
         String prompt = "You are a game judge. The category is: " + topic +
                 ". Is the word '" + answerToCheck + "' part of this category? " +
                 "Answer ONLY with the word 'true' or 'false'. No punctuation.";
@@ -186,6 +186,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hasAnswered = true;
 
         // שמירה ב-Firebase
+        validAnswer = "Player " + currentPlayer + " : " + validAnswer;
         FB.getInstance().setRecord(validAnswer);
 
         // ניקוי השדה
@@ -197,6 +198,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 adapter.notifyDataSetChanged();
             }
         }, 600);
+
 
         switchTurn();
     }
@@ -212,5 +214,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         String message = "שחקן " + winnerPlayer + " ניצח! 🎉";
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         btnSend.setEnabled(false);
+
+
     }
 }

@@ -1,48 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#050015"
     tools:context=".MainActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tabLayout"
-        android:background="#DB4E4E"
-        app:tabIndicator="@color/white"
-        app:tabSelectedTextColor="@color/white">
+    <View
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-120dp"
+        android:layout_marginBottom="-120dp"
+        android:alpha="0.2"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#7000FF" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login">
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="-100dp"
+        android:alpha="0.2"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#FF007F" />
 
-        </com.google.android.material.tabs.TabItem>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register">
-
-        </com.google.android.material.tabs.TabItem>
-
-
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EBE18C">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="WELCOME"
+            android:textColor="#00E5FF"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:shadowColor="#00E5FF"
+            android:shadowRadius="15"/>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#22FFFFFF"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="16dp">
 
-</LinearLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                app:tabIndicatorColor="#FF007F"
+                app:tabIndicatorHeight="4dp"
+                app:tabSelectedTextColor="#FF007F"
+                app:tabTextColor="#FFFFFF"
+                app:tabTextAppearance="@android:style/TextAppearance.Medium"
+                app:tabIndicatorFullWidth="false">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LOGIN" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="REGISTER" />
+
+            </com.google.android.material.tabs.TabLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="#1AFFFFFF"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            android:layout_marginBottom="20dp">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

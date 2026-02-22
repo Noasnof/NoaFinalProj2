@@ -1,26 +1,35 @@
 package com.example.noafinalproj2;
 
 import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.noafinalproj2.gemini.GeminiCallback;
 import com.example.noafinalproj2.gemini.GeminiManager;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public Button btnAgainstPlayer, btnAgainstAi, btnInstruction, btnLogout, btnNewPlayer;
-    EditText edGvihim;
+    public Button  btnAgainstAi, btnInstruction, btnLogout;
+    TextView edGvihim;
+
     public static ArrayList<Record> records;
+
     FB fb;
+    FBsingleton fBsingleton;
+    int gvihim=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        btnAgainstPlayer = findViewById(R.id.btnAgainstPlayer);
-        btnAgainstPlayer.setOnClickListener(this);
 
         btnInstruction = findViewById(R.id.btnInstruction);
         btnInstruction.setOnClickListener(this);
@@ -40,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
 
-        btnNewPlayer = findViewById(R.id.btnNewPlayer);
-        btnNewPlayer.setOnClickListener(this);
+
+
 
         edGvihim = findViewById(R.id.edGvihim);
 
@@ -50,33 +57,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v == btnAgainstPlayer) {
-            // מעבר למסך ההמתנה לחיפוש שחקן נוסף
-            Intent i = new Intent(MainActivity.this, LobbyActivity.class);
-            startActivity(i);
-        }
+
+
 
         if (v == btnAgainstAi) {
             String prompt = "תן לי נושא אחד למשחק אסוסיאציות. תכתוב רק את הנושא בלי דברים נוספים. בעברית. תשובה עד שלוש מילים";
+
             GeminiManager.getInstance().sendMessage(prompt, new GeminiCallback() {
+
                 @Override
                 public void onSuccess(String response) {
                     runOnUiThread(() -> {
-                        Intent intent = new Intent(MainActivity.this, LobbyActivity.class);
+                        Log.d("TOPIC_DEBUG", response);
+
+                        Intent intent = new Intent(MainActivity.this, GameActivity.class);
                         intent.putExtra("subject", response);
-                        // במשחק נגד AI, השחקן השני הוא מזהה קבוע
-                        intent.putExtra("PLAYER1_UID", FirebaseAuth.getInstance().getUid());
-                        intent.putExtra("PLAYER2_UID", "AI_PLAYER_ID");
                         startActivity(intent);
                     });
                 }
-                @Override public void onError(Throwable e) { Log.e(TAG, "Error", e); }
-                @Override public void onError(Exception e) { Log.e(TAG, "Exception", e); }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.e(TAG, "Gemini error", e);
+                    runOnUiThread(() ->
+                            Toast.makeText(MainActivity.this,
+                                    "שגיאה בקבלת נושא מה-AI",
+                                    Toast.LENGTH_SHORT).show()
+                    );
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.e(TAG, "Gemini exception", e);
+                    runOnUiThread(() ->
+                            Toast.makeText(MainActivity.this,
+                                    "שגיאה: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show()
+                    );
+                }
             });
         }
 
         if (v == btnInstruction) {
-            startActivity(new Intent(MainActivity.this, InstructionActivity.class));
+            Intent i2 = new Intent(MainActivity.this, InstructionActivity.class);
+            startActivity(i2);
         }
 
         if (v == btnLogout) {
@@ -84,13 +108,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
 
-        if (v == btnNewPlayer) {
-            startActivity(new Intent(MainActivity.this, CreatePlayer.class));
-        }
+
     }
 
     private void initialization() {
         records = new ArrayList<>();
         fb = FB.getInstance();
+        fBsingleton = FBsingleton.getInstance(); // אתחול הסינגלטון
+
+        // קריאה לפונקציה שמושכת את הגביעים מה-Firebase ומציגה אותם
+        fBsingleton.getTrophies(new FBsingleton.TrophiesCallback() {
+            @Override
+            public void onTrophiesReceived(int trophies) {
+                // שמירה במשתנה המקומי
+                gvihim = trophies;
+
+                // הצגת המספר ב-EditText (חייב להמיר ל-String)
+                if (edGvihim != null) {
+                    edGvihim.setText(String.valueOf(gvihim));
+                }
+            }
+        });
     }
 }

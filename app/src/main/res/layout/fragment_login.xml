@@ -1,44 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
+    android:gravity="center_vertical"
+    android:background="@android:color/transparent"
     tools:context=".RegistrationFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:textSize="28sp"
+        android:text="JOIN THE GAME"
+        android:textSize="26sp"
         android:textStyle="bold"
+        android:textColor="#00E5FF"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="40dp"
+        android:letterSpacing="0.1"
+        android:shadowColor="#00E5FF"
+        android:shadowRadius="8" />
 
     <EditText
         android:id="@+id/etEmailAddress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="Email Address"
+        android:textColorHint="#AAFFFFFF"
+        android:textColor="#FFFFFF"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:layout_marginBottom="16dp" />
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
+        android:backgroundTint="#44FFFFFF"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:drawableStart="@android:drawable/ic_dialog_email"
+        android:drawablePadding="12dp"
+        app:drawableTint="#00E5FF" />
 
     <EditText
         android:id="@+id/etNumberPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="Number Password"
+        android:textColorHint="#AAFFFFFF"
+        android:textColor="#FFFFFF"
         android:inputType="numberPassword"
-        android:minHeight="48dp"
-        android:layout_marginBottom="24dp" />
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
+        android:backgroundTint="#44FFFFFF"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="35dp"
+        android:drawableStart="@android:drawable/ic_lock_idle_lock"
+        android:drawablePadding="12dp"
+        app:drawableTint="#FF007F" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="CREATE &amp; PLAY"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@android:drawable/btn_default"
+        android:backgroundTint="#FF007F"
+        android:elevation="12dp"
+        android:stateListAnimator="@null" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:padding="12dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Secure connection guaranteed 🔒"
+        android:textColor="#66FFFFFF"
+        android:textSize="12sp" />
 
 </LinearLayout>

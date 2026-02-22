@@ -30,7 +30,7 @@ public class RegistrationFragment extends Fragment {
     private EditText etEmail, etPassword, etName;
     private Button btnRegister;
     FBsingleton fb;
-    public ArrayList<Player>players;
+
     public RegistrationFragment() {
         // Required empty public constructor
     }

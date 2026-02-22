@@ -1,44 +1,25 @@
 package com.example.noafinalproj2;
 
 import androidx.annotation.NonNull;
-
-import com.google.android.material.color.utilities.Score;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-// google explanations
-// https://firebase.google.com/docs/database/android/lists-of-data#java_1
-
 
 public class FBsingleton {
     private static FBsingleton instance;
+    public int gvihim;
+    private FirebaseDatabase database;
 
-    FirebaseDatabase database;
+    // ממשק שיעזור לנו להחזיר את מספר הגביעים ל-Activity
+    public interface TrophiesCallback {
+        void onTrophiesReceived(int trophies);
+    }
 
     protected FBsingleton() {
         database = FirebaseDatabase.getInstance();
-
-        // read the records from the Firebase and order them by the record from highest to lowest
-        // limit to only 8 items
-        Query myQuery = database.getReference("records").orderByChild("score").limitToLast(10);
-
-        myQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange( DataSnapshot snapshot) {
-                database = FirebaseDatabase.getInstance();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-
     }
 
     public static FBsingleton getInstance() {
@@ -48,27 +29,48 @@ public class FBsingleton {
         return instance;
     }
 
-    public void setName(String name)
-    {
-        // Write a message to the database
-        //DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
+    // פונקציה חדשה שמושכת את מספר הגביעים מה-Firebase
+    public void getTrophies(TrophiesCallback callback) {
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) return;
 
+        // הנתיב שבו הניקוד שמור (לפי setDetails שלך)
+        DatabaseReference myRef = database.getReference("records/" + uid + "/MyDetails/score");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Integer score = snapshot.getValue(Integer.class);
+                    if (score != null) {
+                        callback.onTrophiesReceived(score);
+                    }
+                } else {
+                    callback.onTrophiesReceived(0); // אם אין נתונים, נציג 0
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // שגיאה בקריאה
+            }
+        });
+    }
+
+    public void setName(String name) {
         DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyName");
-
         myRef.setValue(name);
-
     }
-    public void setDetails(int Score)
-    {
-        // Write a message to the database
-        //DatabaseReference myRef = database.getReference("records").push(); // push adds new node with unique value
 
+    public void setDetails(int score) {
         DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyDetails");
-
-        MyDetailsInFb rec = new MyDetailsInFb(100);
+        // כאן את יוצרת אובייקט עם הניקוד שקיבלת
+        MyDetailsInFb rec = new MyDetailsInFb(score);
         myRef.setValue(rec);
+        gvihim=score;
     }
-
-
-
+    public int getGvihim()
+    {
+        return gvihim;
+    }
 }
