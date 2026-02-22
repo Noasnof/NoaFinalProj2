@@ -20,7 +20,7 @@ import kotlin.coroutines.CoroutineContext;
 import kotlin.coroutines.EmptyCoroutineContext;
 
 public class GeminiManager {
-    public static final String API_KEY = "AIzaSyA_9wbPSX56Kxeali5UtN5fz7mJbML9YO8";
+    public static final String API_KEY = "AIzaSyBnD3ypBGaK2YAZzvQj3Ws5oFQnwCY5Mig";
     private static GeminiManager instance;
     private GenerativeModel gemini ;
 
