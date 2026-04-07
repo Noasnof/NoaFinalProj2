@@ -35,7 +35,7 @@ public class FBsingleton {
         if (uid == null) return;
 
         // הנתיב שבו הניקוד שמור (לפי setDetails שלך)
-        DatabaseReference myRef = database.getReference("records/" + uid + "/MyDetails/score");
+        DatabaseReference myRef = database.getReference("Players/" + uid + "/MyDetails/score");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,19 +58,27 @@ public class FBsingleton {
     }
 
     public void setName(String name) {
-        DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyName");
+        DatabaseReference myRef = database.getReference("Players/" + FirebaseAuth.getInstance().getUid() + "/MyName");
         myRef.setValue(name);
     }
 
     public void setDetails(int score) {
-        DatabaseReference myRef = database.getReference("records/" + FirebaseAuth.getInstance().getUid() + "/MyDetails");
+        DatabaseReference myRef = database.getReference("Players/" + FirebaseAuth.getInstance().getUid() + "/MyDetails");
         // כאן את יוצרת אובייקט עם הניקוד שקיבלת
         MyDetailsInFb rec = new MyDetailsInFb(score);
         myRef.setValue(rec);
         gvihim=score;
     }
-    public int getGvihim()
-    {
-        return gvihim;
+
+    public void addTrophies(int cupsToAdd) {
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) return;
+
+        // Pointing exactly to the score path in your database
+        DatabaseReference myRef = database.getReference("Players/" + uid + "/MyDetails/score");
+
+        // Tell Firebase to add cupsToAdd to the current value safely
+        myRef.setValue(com.google.firebase.database.ServerValue.increment(cupsToAdd));
     }
+
 }

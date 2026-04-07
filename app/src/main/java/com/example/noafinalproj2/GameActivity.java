@@ -37,6 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private boolean gameOver = false;
     private String topic;
 
+
     // רשימה עזר פנימית לבדיקת כפילויות בצורה נקייה
     private List<String> usedWordsOnly = new ArrayList<>();
 
@@ -170,9 +171,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void switchTurn() {
+
         currentPlayer = (currentPlayer == 1) ? 2 : 1;
         startTurn();
     }
+
+
 
     private void endGame(int winnerPlayer) {
         gameOver = true;
@@ -183,7 +187,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         usedWordsOnly.clear(); // איפוס כפילויות בסוף משחק
 
         if (adapter != null) adapter.notifyDataSetChanged();
-        Toast.makeText(this, "שחקן " + winnerPlayer + " ניצח! 🎉", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "שחקן " + winnerPlayer + " ניצח! 🎉 התווספו 10 גביעים!", Toast.LENGTH_LONG).show();
         btnSend.setEnabled(false);
+
+        FBsingleton.getInstance().addTrophies(10);
+
+        new Handler().postDelayed(() -> {
+            finish();
+        }, 2000);
     }
 }

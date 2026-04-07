@@ -72,4 +72,5 @@ public class FB {
         // משתמשים ב-database שכבר קיים במחלקה כדי לגשת לצומת Answers ולמחוק אותו
         database.getReference("Answers").removeValue();
     }
+
 }
