@@ -57,10 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-
-
-        if (v == btnAgainstAi) {
+        /*if (v == btnAgainstAi) {
             String prompt = "תן לי נושא אחד למשחק אסוסיאציות. תכתוב רק את הנושא בלי דברים נוספים. בעברית. תשובה עד שלוש מילים";
 
             GeminiManager.getInstance().sendMessage(prompt, new GeminiCallback() {
@@ -94,6 +91,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     "שגיאה: " + e.getMessage(),
                                     Toast.LENGTH_SHORT).show()
                     );
+                }
+            });
+        }*/
+
+        if (v == btnAgainstAi) { // Assuming you renamed the button to btnStartGame
+            android.app.ProgressDialog dialog = new android.app.ProgressDialog(this);
+            dialog.setMessage("מחפש יריב...");
+            dialog.setCancelable(false);
+            dialog.show();
+
+            // 1. Try to join an existing game first
+            fBsingleton.joinGameRoom(new FBsingleton.GameRoomCallback() {
+                @Override
+                public void onGameReady(String gameId, boolean isPlayer1) {
+                    // Found a game! Let's play.
+                    dialog.dismiss();
+                    startGameActivity(gameId, isPlayer1);
+                }
+
+                @Override
+                public void onError(String message) {
+                    // No game found (or other error). Let's create one instead.
+                    dialog.setMessage("מייצר משחק חדש, ממתין ליריב שיצטרף...");
+
+                    // First, get a topic from Gemini
+                    String prompt = "תן לי נושא אחד בלבד למשחק אסוציאציות. תכתוב רק את הנושא בלי דברים נוספים. בעברית. נושאים פשוטים.";
+
+                    GeminiManager.getInstance().sendMessage(prompt, new GeminiCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                            runOnUiThread(() -> {
+                                // Topic received, now create the room
+                                fBsingleton.createGameRoom(response, new FBsingleton.GameRoomCallback() {
+                                    @Override
+                                    public void onGameReady(String gameId, boolean isPlayer1) {
+                                        dialog.dismiss();
+                                        startGameActivity(gameId, isPlayer1);
+                                    }
+
+                                    @Override
+                                    public void onError(String message) {
+                                        dialog.dismiss();
+                                        Toast.makeText(MainActivity.this, "שגיאה ביצירת חדר: " + message, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            });
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            runOnUiThread(() -> {
+                                dialog.dismiss();
+                                Toast.makeText(MainActivity.this, "שגיאה בקבלת נושא מ-AI", Toast.LENGTH_SHORT).show();
+                            });
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            runOnUiThread(() -> {
+                                dialog.dismiss();
+                                Toast.makeText(MainActivity.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
                 }
             });
         }
@@ -130,4 +191,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+
+
+
+
+
+    private void startGameActivity(String gameId, boolean isPlayer1) {
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        intent.putExtra("GAME_ID", gameId);
+        intent.putExtra("IS_PLAYER_1", isPlayer1);
+        startActivity(intent);
+    }
+
 }

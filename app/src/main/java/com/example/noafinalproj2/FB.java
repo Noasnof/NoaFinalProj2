@@ -57,7 +57,7 @@ public class FB {
         return instance;
     }
 
-    public void setRecord(String Answer)
+    /*public void setRecord(String Answer)
     {
         // Write a message to the database
         DatabaseReference myRef = database.getReference("Answers").push(); // push adds new node with unique value
@@ -67,10 +67,25 @@ public class FB {
 
         Record rec = new Record(Answer);
         myRef.setValue(rec);
+    }*/
+
+    public void setRecord(String gameID, String Answer) {
+        if (gameID == null) return;
+        // שומרים את המילה בתוך החדר הספציפי
+        DatabaseReference myRef = database.getReference("Games").child(gameID).child("Answers").push();
+
+        Record rec = new Record(Answer);
+        myRef.setValue(rec);
     }
-    public void clearRecords() {
+
+    /*public void clearRecords() {
         // משתמשים ב-database שכבר קיים במחלקה כדי לגשת לצומת Answers ולמחוק אותו
         database.getReference("Answers").removeValue();
+    }*/
+
+    public void clearRecords(String gameID) {
+        if (gameID == null) return;
+        database.getReference("Games").child(gameID).child("Answers").removeValue();
     }
 
 }
